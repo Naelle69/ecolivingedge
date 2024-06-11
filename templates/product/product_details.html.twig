@@ -1,0 +1,276 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello ProductController!{% endblock %}
+
+{% block body %}
+
+
+    <div class="container">
+        <h1>Détails du produits</h1>
+        <div>
+            <div class="d-md-flex gap-5">
+                <div>
+                    {% if product is not empty %}
+                        <div class="card mb-3" style="max-width: 840px;">
+                            <div class="row g-0">
+                                <div class="col-md-4">
+                                        {#{% if product.image %}
+                                            <img src="{{ asset(product.image.url) }}" class="card-img-top" alt="{{ product.image.alt }}">
+                                        {% else %}
+                                            <img src="default-image-path.png" class="card-img-top" alt="Image par défaut">
+                                        {% endif %} #}
+                                        {# <img src="{{ product.image }}" alt="{{ product.name }}" class="img-fluid"> #}
+                                    <img
+                                            src="https://mdbcdn.b-cdn.net/wp-content/uploads/2020/06/vertical.webp"
+                                            alt="Trendy Pants and Shoes"
+                                            class="img-fluid rounded-start"
+                                    />
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="card-body">
+                                        <h5 class="card-title">{{ product.name }}</h5>
+                                        <p class="card-text">
+                                            This is a wider card with supporting text below as a natural lead-in to
+                                            additional content. This content is a little bit longer.
+                                        </p>
+                                        <p class="card-text">{{ product.description }}</p>
+                                        <p class="card-text">{{ product.price }}€</p>                                
+                                        <p class="card-text"></p>
+                                        <small class="text-muted">Alert stock</small>
+                                        <div class="">
+                                            <a href="{{ path('app_products') }}" class="btn btn-primary">Revenir</a>
+                                            <a href="{{ path('app_cart', {'id': product.id}) }}" class="btn btn-primary">Acheter</a>
+                                            {% if is_granted('ROLE_USER') and product.commentaire is not null %}
+                                                <a href="{{path('app_commentaire',{'id':product.id})}}" class="btn btn-primary">Commenter</a>
+                                            {% endif %}
+                                        </div>
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <p class="card-text"> 
+                            {% for prestation in product.prestation %}
+                                {{ prestation.name }}{% if not loop.last %}, {% endif %}
+                            {% endfor %}
+                        </p>
+                    {% else %}
+                        <p>Aucun produit disponible.</p>
+                    {% endif %}
+                </div>  
+
+                {#<div>
+
+                </div> #}
+
+            </div>
+            <div class="mt-5">
+                <ul class="nav nav-tabs nav-fill mb-3" id="ex1" role="tablist">
+                    <li class="nav-item" role="presentation">
+                        <a
+                            class="nav-link active"
+                            id="ex2-tab-1"
+                            data-bs-toggle="tab"
+                            href="#ex2-tabs-1"
+                            role="tab"
+                            aria-controls="ex2-tabs-1"
+                            aria-selected="true"
+                        >Caractéristiques techniques</a>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <a
+                            class="nav-link"
+                            id="ex2-tab-2"
+                            data-bs-toggle="tab"
+                            href="#ex2-tabs-2"
+                            role="tab"
+                            aria-controls="ex2-tabs-2"
+                            aria-selected="false"
+                        >Services liés à ce produits</a>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <a
+                            class="nav-link"
+                            id="ex2-tab-3"
+                            data-bs-toggle="tab"
+                            href="#ex2-tabs-3"
+                            role="tab"
+                            aria-controls="ex2-tabs-3"
+                            aria-selected="false"
+                        >Questions/Réponses</a>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <a
+                            class="nav-link"
+                            id="ex2-tab-4"
+                            data-bs-toggle="tab"
+                            href="#ex2-tabs-4"
+                            role="tab"
+                            aria-controls="ex2-tabs-4"
+                            aria-selected="false"
+                        >Avis</a>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <a
+                            class="nav-link"
+                            id="ex2-tab-5"
+                            data-bs-toggle="tab"
+                            href="#ex2-tabs-5"
+                            role="tab"
+                            aria-controls="ex2-tabs-5"
+                            aria-selected="false"
+                        >Garantie</a>
+                    </li>
+                </ul>
+                <!-- Tabs navs -->
+
+                <!-- Tabs content -->
+                <div class="tab-content" id="ex2-content">
+                    <div
+                        class="tab-pane fade show active"
+                        id="ex2-tabs-1"
+                        role="tabpanel"
+                        aria-labelledby="ex2-tab-1"
+                    >
+                    1
+                    </div>
+
+                    <div
+                        class="tab-pane fade"
+                        id="ex2-tabs-2"
+                        role="tabpanel"
+                        aria-labelledby="ex2-tab-2"
+                    >   
+                        <p class="card-text"> 
+                            {% for prestation in product.prestation %}
+                                {{ prestation.name }}{% if not loop.last %}, {% endif %}
+                            {% endfor %}
+                        </p>
+                    </div>
+                    
+                    <div class="tab-pane fade" id="ex2-tabs-3" role="tabpanel" aria-labelledby="ex2-tab-3">
+                        <div class="accordion" id="accordionExample">
+                            <div class="accordion-item">
+                                <h2 class="accordion-header accordion" id="headingOne">
+                                    <button
+                                        data-mdb-collapse-init
+                                        class="accordion-button"
+                                        type="button"
+                                        data-mdb-toggle="collapse"
+                                        data-mdb-target="#collapseOne"
+                                        aria-expanded="true"
+                                        aria-controls="collapseOne"> Accordion Item #1
+                                    </button>
+                                </h2>
+                                <div id="collapseOne" class="hidden accordion-collapse collapse show" aria-labelledby="headingOne" data-mdb-parent="#accordionExample">
+                                    <div class="accordion-body">
+                                        <strong>This is the first item's accordion body.</strong> It is hidden by default,
+                                        until the collapse plugin adds the appropriate classes that we use to style each
+                                        element. These classes control the overall appearance, as well as the showing and
+                                        hiding via CSS transitions. You can modify any of this with custom CSS or
+                                        overriding our default variables. It's also worth noting that just about any HTML
+                                        can go within the <strong>.accordion-body</strong>, though the transition does
+                                        limit overflow.
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="accordion-item">
+                                <h2 class="accordion-header accordion" id="headingTwo">
+                                    <button
+                                        data-mdb-collapse-init
+                                        class="accordion-button collapsed"
+                                        type="button"
+                                        data-mdb-toggle="collapse"
+                                        data-mdb-target="#collapseTwo"
+                                        aria-expanded="false"
+                                        aria-controls="collapseTwo">Accordion Item #2
+                                    </button>
+                                </h2>
+                                <div id="collapseTwo" class="hidden accordion-collapse collapse" aria-labelledby="headingTwo" data-mdb-parent="#accordionExample">
+                                    <div class="accordion-body">
+                                        <strong>This is the second item's accordion body.</strong> It is hidden by
+                                        default, until the collapse plugin adds the appropriate classes that we use to
+                                        style each element. These classes control the overall appearance, as well as the
+                                        showing and hiding via CSS transitions. You can modify any of this with custom CSS
+                                        or overriding our default variables. It's also worth noting that just about any
+                                        HTML can go within the <strong>.accordion-body</strong>, though the transition
+                                        does limit overflow.
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="accordion-item">
+                                <h2 class="accordion-header accordion" id="headingThree">
+                                    <button
+                                        data-mdb-collapse-init
+                                        class="accordion-button collapsed"
+                                        type="button"
+                                        data-mdb-toggle="collapse"
+                                        data-mdb-target="#collapseThree"
+                                        aria-expanded="false"
+                                        aria-controls="collapseThree">Accordion Item #3</button>
+                                </h2>
+                                <div id="collapseThree" class="hidden accordion-collapse collapse" aria-labelledby="headingThree" data-mdb-parent="#accordionExample">
+                                    <div class="accordion-body">
+                                        <strong>This is the third item's accordion body.</strong> It is hidden by default,
+                                        until the collapse plugin adds the appropriate classes that we use to style each
+                                        element. These classes control the overall appearance, as well as the showing and
+                                        hiding via CSS transitions. You can modify any of this with custom CSS or
+                                        overriding our default variables. It's also worth noting that just about any HTML
+                                        can go within the <strong>.accordion-body</strong>, though the transition does
+                                        limit overflow.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div
+                        class="tab-pane fade"
+                        id="ex2-tabs-4"
+                        role="tabpanel"
+                        aria-labelledby="ex2-tab-4">
+                        <div>
+                            <h5 class="card-title">Avis clients</h5>
+                            {% if app.request.query.get('idAnnonce') is not null %}
+                                {{ include('partials/_commentaire.html.twig') }}
+                            {% endif %}
+                            {% if product.commentaire is not null %}
+                            {% for product in product.commentaire %}
+                                <i>auteur: {{product.pseudo }} </i><br>
+                                <i>product: {{product.content }} </i><br>
+                                <i>auteur: {{product.publishedAt|date('d-m-Y') }} </i><br><br>
+                            {% endfor %}
+                            {% endif %}
+                        </div>
+                    </div>
+
+                    <div
+                        class="tab-pane fade"
+                        id="ex2-tabs-5"
+                        role="tabpanel"
+                        aria-labelledby="ex2-tab-"
+                    >
+                        Tab 5 content
+                    </div>
+                </div>
+            </div>            
+        </div>  
+    </div>    
+
+<script>
+var acc = document.getElementsByClassName("accordion");
+var i;
+
+for (i = 0; i < acc.length; i++) {
+  acc[i].addEventListener("click", function() {
+    this.classList.toggle("active");
+    var panel = this.nextElementSibling;
+    if (panel.style.display === "block") {
+      panel.style.display = "none";
+    } else {
+      panel.style.display = "block";
+    }
+  });
+}
+</script>
+{% endblock %}

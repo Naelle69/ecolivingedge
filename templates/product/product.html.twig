@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello ProductController!{% endblock %}
+
+{% block body %}
+    <div class="grid">
+    <h1>Nos produits</h1>
+<div class="container">
+    <div class="row">
+        {% for product in product %}
+            <div class="col-12 col-md-6 col-lg-4 mb-4">
+                <div class="card text-center">
+                    <div class="card-header">
+                        <!-- Vous pouvez ajouter une image ici -->
+                        <img src="{{ product.image }}" alt="{{ product.name }}" class="img-fluid">
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title">{{ product.name }}</h5>
+                        <p class="card-text">{{ product.description }}</p>
+                        <p class="card-text">{{ product.price }}€</p>
+                        <p class="card-text"> 
+                            {% for category in product.category %}
+                                {{ category.name }}{% if not loop.last %}, {% endif %}
+                            {% endfor %}
+                        </p>
+                    </div>
+                    <div class="card-footer text-muted">
+                        <a href="{{ path('app_cart', {'id': product.id}) }}" class="btn btn-primary">Ajouter au panier</a>
+                        <a href="{{path('product_details', {'id':product.id})}}" class="btn btn-primary">En savoir plus</a>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+    <div class="navigation">     
+        {{ knp_pagination_render(product) }}
+    </div>    
+</div>
+
+
+
+{# <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script> #}
+    </div>    
+{% endblock %}

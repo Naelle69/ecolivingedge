@@ -1,0 +1,10 @@
+{# templates/cart/empty_cart.html.twig #}
+
+{% extends 'base.html.twig' %}
+
+{% block title %}Panier vide{% endblock %}
+
+{% block body %}
+    <h1>Votre panier est vide</h1>
+    <p>Votre panier est vide pour le moment. <a href="{{ path('homepage') }}">Continuez vos achats</a>.</p>
+{% endblock %}

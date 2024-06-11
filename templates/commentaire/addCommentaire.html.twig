@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Ajout commentaires!{% endblock %}
+
+{% block body %}
+<div class="container"> 
+{{ form_start(form,{action: path('app_commentaire',{'id':id}) }) }}
+    {{ form(form)}}
+{{ form_end(form) }}  
+</div>
+{% endblock %}
